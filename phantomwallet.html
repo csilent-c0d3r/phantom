@@ -43,7 +43,7 @@
     </style>
 </head>
 <body>
-    <div>
+    <div id="container">
         <button id="connectWalletButton">Connect Phantom Wallet</button>
         <p id="walletStatus">Status: Not connected</p>
     </div>
@@ -54,8 +54,15 @@
                 try {
                     const resp = await window.solana.connect();
                     const walletAddress = resp.publicKey.toString();
-                    // Redirect back to your Wix site with wallet address as URL parameter
-                    window.location.href = `https://www.cryptosafe.ch/buy-cst?walletAddress=${walletAddress}`;
+
+                    // Send wallet address to the original tab and close this one
+                    if (window.opener) {
+                        window.opener.postMessage({ walletAddress: walletAddress }, '*');
+                        window.close();
+                    } else {
+                        // Fallback if window.opener is not available
+                        document.getElementById('walletStatus').innerText = "Could not return to original tab.";
+                    }
                 } catch (err) {
                     document.getElementById('walletStatus').innerText = "Connection failed. Please try again.";
                     console.error("Connection error:", err);

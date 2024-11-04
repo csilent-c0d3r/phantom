@@ -1,51 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <style>
-        /* Center the content vertically and horizontally */
-            body, html {
-                margin: 0;
-                padding: 0;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: 100vh;
-                font-family: Arial, sans-serif;
-                background-color: #f4f4f9;
-                overflow: hidden; /* Prevents unnecessary scrollbars */
-            }
-    
-            /* Style the button */
-            #connectWalletButton {
-                padding: 10px 20px;
-                font-size: 16px;
-                color: #ffffff;
-                background-color: #4CAF50;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-                transition: background-color 0.3s ease;
-            }
-    
-            #connectWalletButton:hover {
-                background-color: #45a049;
-            }
-    
-            /* Style the status message */
-            #walletStatus {
-                margin-top: 20px;
-                font-size: 14px;
-                color: #333333;
-            }
-    </style>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connect Phantom Wallet</title>
+    <style>
+        /* Center the content vertically and horizontally */
+        body, html {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            overflow: hidden; /* Prevents unnecessary scrollbars */
+        }
+
+        /* Style the button */
+        #connectWalletButton {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #ffffff;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #connectWalletButton:hover {
+            background-color: #45a049;
+        }
+
+        /* Style the status message */
+        #walletStatus {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #333333;
+        }
+    </style>
 </head>
 <body>
-    <button id="connectWalletButton">Connect Phantom Wallet</button>
-    <p id="walletStatus">Status: Not connected</p>
+    <div>
+        <button id="connectWalletButton">Connect Phantom Wallet</button>
+        <p id="walletStatus">Status: Not connected</p>
+    </div>
 
     <script>
         document.getElementById('connectWalletButton').addEventListener('click', async () => {
@@ -53,14 +54,14 @@
                 try {
                     const resp = await window.solana.connect();
                     const walletAddress = resp.publicKey.toString();
-                    // Redirect back to Wix site with wallet address as URL parameter
-                    window.location.href = `https://cryptosafe.ch/buy-cst?walletAddress=${walletAddress}`;
+                    // Redirect back to your Wix site with wallet address as URL parameter
+                    window.location.href = `https://www.cryptosafe.ch/buy-cst?walletAddress=${walletAddress}`;
                 } catch (err) {
-                    document.getElementById('walletStatus').innerText = "Connection failed.";
+                    document.getElementById('walletStatus').innerText = "Connection failed. Please try again.";
                     console.error("Connection error:", err);
                 }
             } else {
-                document.getElementById('walletStatus').innerText = "Phantom wallet not found.";
+                document.getElementById('walletStatus').innerText = "Phantom wallet not found. Please install it.";
             }
         });
     </script>

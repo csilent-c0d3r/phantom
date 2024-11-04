@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=400 height=400", initial-scale=1.0">
     <title>Connect Phantom Wallet</title>
     <style>
         /* Center the content vertically and horizontally */
@@ -55,14 +55,9 @@
                     const resp = await window.solana.connect();
                     const walletAddress = resp.publicKey.toString();
 
-                    // Send wallet address to the original tab and close this one
-                    if (window.opener) {
-                        window.opener.postMessage({ walletAddress: walletAddress }, '*');
-                        window.close();
-                    } else {
-                        // Fallback if window.opener is not available
-                        document.getElementById('walletStatus').innerText = "Could not return to original tab.";
-                    }
+                    // Redirect back to the Wix site with the wallet address in the URL
+                    const redirectUrl = `https://www.cryptosafe.ch/buy-cst?walletAddress=${walletAddress}`;
+                    window.location.href = redirectUrl;
                 } catch (err) {
                     document.getElementById('walletStatus').innerText = "Connection failed. Please try again.";
                     console.error("Connection error:", err);
@@ -73,4 +68,5 @@
         });
     </script>
 </body>
+</html>
 </html>

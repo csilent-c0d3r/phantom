@@ -16,7 +16,7 @@
                     const resp = await window.solana.connect();
                     const walletAddress = resp.publicKey.toString();
                     // Redirect back to Wix site with wallet address as URL parameter
-                    window.location.href = `https://your-wix-site.com/buy-cst?walletAddress=${walletAddress}`;
+                    window.location.href = `https://cryptosafe.ch/buy-cst?walletAddress=${walletAddress}`;
                 } catch (err) {
                     document.getElementById('walletStatus').innerText = "Connection failed.";
                     console.error("Connection error:", err);

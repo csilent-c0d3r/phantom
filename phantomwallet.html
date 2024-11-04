@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect Phantom Wallet</title>
+</head>
+<body>
+    <button id="connectWalletButton">Connect Phantom Wallet</button>
+    <p id="walletStatus">Status: Not connected</p>
+
+    <script>
+        document.getElementById('connectWalletButton').addEventListener('click', async () => {
+            if (window.solana && window.solana.isPhantom) {
+                try {
+                    const resp = await window.solana.connect();
+                    const walletAddress = resp.publicKey.toString();
+                    // Redirect back to Wix site with wallet address as URL parameter
+                    window.location.href = `https://your-wix-site.com/buy-cst?walletAddress=${walletAddress}`;
+                } catch (err) {
+                    document.getElementById('walletStatus').innerText = "Connection failed.";
+                    console.error("Connection error:", err);
+                }
+            } else {
+                document.getElementById('walletStatus').innerText = "Phantom wallet not found.";
+            }
+        });
+    </script>
+</body>
+</html>
